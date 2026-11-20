@@ -195,10 +195,13 @@ public class GraphUtility {
 			throw new IllegalArgumentException("There is no path between vertex " + startData + " and vertex " + startData + ".");
 		}
 		
-		public List<GraphType> shortestWeightedPathWithPriorityQueue(GraphType startData, GraphType endData) {
-			// TODO: Fill in and add Javadoc comment.  Add "visited" variable to Vertex class, as needed by algorithm.
-			return null;
-		}
+		public static <Type> List<Type> shortestWeightedPathWithPriorityQueue(
+			List<Type> sources, List<Type> destinations,
+			List<Double> weights, Type srcData, Type dstData) {
+
+
+			return buildGraph(sources, destinations, weights)
+				.shortestWeightedPathWithPriorityQueue(srcData, dstData);
 		
 		/**
 		 * Generates an ordered list of data for the vertices that make up the path defined by 
