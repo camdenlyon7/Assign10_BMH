@@ -134,7 +134,7 @@ public class BinaryMinHeap <E> implements PriorityQueue<E>{
 		while (i < half) {
 			int leftIndex = 2 * i + 1;
 			int rightIndex = leftIndex + 1;
-			int ChildIndex = leftIndex;
+			int childIndex = leftIndex;
 			E smallerChild = entryAt(leftIndex);
         	if (rightIndex < this.size) {
 				E rightChild = entryAt(rightIndex);
