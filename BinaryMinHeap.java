@@ -126,19 +126,47 @@ public class BinaryMinHeap <E> implements PriorityQueue<E>{
     
     
     /**
-     * Moves the element at the given index down the tree until it is less than 
-     * or equal to both of its children, or until it becomes a leaf.
+     * Moves the element at the given index down the tree until in place
      */
     private void percolateDown(int i) {
-		// TODO Auto-generated method stub   
+    	E target = entryAt(i);
+    	int half = this.size / 2;
+		while (i < half) {
+			int leftIndex = 2 * i + 1;
+			int rightIndex = leftIndex + 1;
+			int ChildIndex = leftIndex;
+			E smallerChild = entryAt(leftIndex);
+        	if (rightIndex < this.size) {
+				E rightChild = entryAt(rightIndex);
+				if (innerCompare(rightChild, smallerChild) < 0) {
+					ChildIndex = rightIndex;
+					smallerChild = rightChild;
+				}
+        	}
+        	if (innerCompare(target, smallerChild) <= 0)
+        		break;
+        	this.data[i] = smallerChild;
+        	i = ChildIndex;
+    }
+    
+    this.data[i] = target;    
     }
     
     /**
-     * Moves the element at the given index up the tree until it is greater than 
-     * or equal to its parent, or until it reaches the root.
+     * Moves the element at the given index up the tree until it is in place
      */
     private void percolateUp(int i) {
-		// TODO Auto-generated method stub   
+    	E target = entryAt(i);
+    	while (i > 0) {
+    		int parentIndex = (i - 1) / 2;
+    		E parent = entryAt(parentIndex);
+    		if (innerCompare(target, parent) >= 0) {
+    			break;
+    		}
+    		this.data[i] = parent;
+            i = parentIndex;
+        }
+        this.data[i] = target;
     }
     
     /**
