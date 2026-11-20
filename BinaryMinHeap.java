@@ -95,9 +95,6 @@ public class BinaryMinHeap <E> implements PriorityQueue<E>{
 	@Override
 	public void clear() {
 		this.size = 0;
-		for (int i = 0; i < this.data.length; i++) {
-			this.data[i] = null;
-		}
 		
 	}
 
@@ -139,14 +136,14 @@ public class BinaryMinHeap <E> implements PriorityQueue<E>{
         	if (rightIndex < this.size) {
 				E rightChild = entryAt(rightIndex);
 				if (innerCompare(rightChild, smallerChild) < 0) {
-					ChildIndex = rightIndex;
+					childIndex = rightIndex;
 					smallerChild = rightChild;
 				}
         	}
         	if (innerCompare(target, smallerChild) <= 0)
         		break;
         	this.data[i] = smallerChild;
-        	i = ChildIndex;
+        	i = childIndex;
     }
     
     this.data[i] = target;    
@@ -175,4 +172,44 @@ public class BinaryMinHeap <E> implements PriorityQueue<E>{
     private int innerCompare(E a, E b) {
         return this.comp.compare(a, b);
     }
+
+	@Override
+	public void add(E element) { 
+		if (element == null)
+			throw new NullPointerExcep
+				tion("Element cannot be null");
+		if (size == data.length) {
+			Objecct[] newData = new Object[data.length * 2];
+			System.arraycopy(data, 0, newData, 0, size);
+			data = newData;
+		}
+
+		data[size] = element;
+		size++;
+		percolateUp(size - 1);
 }
+
+	@Override
+	public E extract() throws NoSuchElementException {
+		if (isEmpty()) 
+			throw new NoSuchElementException("Heap is empty");
+
+		E minimum = entryAt(0);
+
+		data[0] = data[size - 1];
+		data[size - 1] = null;
+		size--;
+
+		if (size > 0) 
+			percolateDown(0);
+
+		return minimum;
+	}
+
+	@Override
+	public Object[0] toArray() {
+		Object[] result = new Object[size];
+		System.arraycopy(data, 0, result, 0, size);
+		return result;
+
+	}
